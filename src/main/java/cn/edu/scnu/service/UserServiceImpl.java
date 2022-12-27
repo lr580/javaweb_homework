@@ -16,4 +16,14 @@ public class UserServiceImpl  extends ServiceImpl<UserMapper,User> implements Us
 		userQueryWrapper.eq("user_name", userName);
 		return userMapper.selectOne(userQueryWrapper);
 	}
+	
+	public User queryUserJson(String userId) {
+		return userMapper.selectById(userId);
+	}
+
+	public void userSave(User user) {
+		user.setUserId(UUID.randomUUID().toString());
+		user.setUserPassword(MD5Util.md5(user.getUserPassword()));
+		userMapper.insert(user);	
+	}
 }

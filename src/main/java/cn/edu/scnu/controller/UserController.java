@@ -32,4 +32,52 @@ public class UserController {
             return SysResult.build(201, "您输入的密码错误", null);
         }
     }
+    @RequestMapping("/user/query/{ticket}")
+	public SysResult checkLoginUser(@PathVariable String ticket) {
+		User user = userService.queryUserJson(ticket);
+		String userJson="";
+		try {
+			userJson = MapperUtil.MP.writeValueAsString(user);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}		
+		// 判断非空
+		if (userJson!=null) {
+			// 确实曾经登录过.也正在登录使用状态中
+			return SysResult.build(200, "ok", userJson);
+		} else {
+			return SysResult.build(201, "查不到", null);
+		}
+	}
+    @RequestMapping("/user/logout")
+	public SysResult logout(HttpSession session, 
+			HttpServletRequest request, HttpServletResponse response) {
+    	session.setAttribute("user", null);         
+        CookieUtils.deleteCookie(request, response, "EM_TICKET");
+        return SysResult.ok();
+    }
+    @RequestMapping("/user/checkUserName")
+	public SysResult checkUsername(String userName) {
+		User user = userService.selectByUsername(userName);
+		if (user == null) {
+			return SysResult.ok();
+		}
+		return SysResult.build(201, "用户名已存在", null);
+	}
+    @RequestMapping("/user/save")
+	public SysResult userSave(User user) {
+		// 1.username是否已被注册
+		User user1 = userService.selectByUsername(user.getUserName());
+		if (user1!=null) {
+			return SysResult.build(201, "用户名已存在", null);
+		}
+		try {
+			userService.userSave(user);
+			return SysResult.ok();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SysResult.build(201, "添加失败", null);
+		}
+	}
+
 }
