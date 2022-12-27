@@ -1,4 +1,5 @@
 package cn.edu.scnu.service;
+import cn.edu.scnu.pojo.Product;
 import cn.edu.scnu.pojo.User;
 import cn.edu.scnu.vo.EasyUIResult;
 public interface UserService {
