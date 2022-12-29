@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
@@ -12,6 +13,7 @@
     <script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <!-- 自己实现业务逻辑 -->
     <script type="text/javascript" src="js/common.js"></script>
 
@@ -22,46 +24,70 @@
         }
     </style>
 </head>
+
 <body class="easyui-layout">
-<div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
-    <ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
-        <li>
-            <span>商品管理</span>
-            <ul>
-                <li data-options="attributes:{'url':'./item-add.html'}">新增商品</li>
-                <li data-options="attributes:{'url':'./item-list.html'}">查询商品</li>
-            </ul>
-        </li>
-    </ul>
-</div>
-<div data-options="region:'center',title:''">
-    <div id="tabs" class="easyui-tabs">
-        <div title="首页" style="padding:20px;">
+    <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
+        <ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
+            <li>
+                <span>商品管理</span>
+                <ul>
+                    <li data-options="attributes:{'url':'./item-add.html'}">新增商品</li>
+                    <li data-options="attributes:{'url':'./item-list.html'}">查询商品</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div data-options="region:'center',title:''">
+        <div id="tabs" class="easyui-tabs">
+            <div title="首页" style="padding:20px;">
+            </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    $(function(){
-        $('#menu').tree({
-            onClick: function(node){
-                if($('#menu').tree("isLeaf",node.target)){
-                    var tabs = $("#tabs");
-                    var tab = tabs.tabs("getTab",node.text);
-                    if(tab){
-                        tabs.tabs("select",node.text);
-                    }else{
-                        tabs.tabs('add',{
-                            title:node.text,
-                            href: node.attributes.url,
-                            closable:true,
-                            bodyCls:"content"
-                        });
+    <script type="text/javascript">
+        $(function() {
+            var userId = "";
+            var _ticket = $.cookie("EM_TICKET");
+            if (!_ticket) {
+                window.location.href = "login.html";
+                return;
+            }
+            $.ajax({
+                url: "http://www.easymall.com/user/checkadmin/" + _ticket,
+                dataType: "json",
+                type: "GET",
+                success: function(data) {
+                    console.log(data)
+                    if (data.status != 200) {
+                        window.location.href = "login.html";
+                        alert(data.msg);
+                    }
+
+                },
+                error: function() {
+                    alert('index error.');
+                }
+            });
+            $('#menu').tree({
+                onClick: function(node) {
+                    if ($('#menu').tree("isLeaf", node.target)) {
+                        var tabs = $("#tabs");
+                        var tab = tabs.tabs("getTab", node.text);
+                        if (tab) {
+                            tabs.tabs("select", node.text);
+                        } else {
+                            tabs.tabs('add', {
+                                title: node.text,
+                                href: node.attributes.url,
+                                closable: true,
+                                bodyCls: "content"
+                            });
+                        }
                     }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>
