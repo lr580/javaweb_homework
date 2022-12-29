@@ -16,7 +16,7 @@
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <!-- 自己实现业务逻辑 -->
     <script type="text/javascript" src="js/common.js"></script>
-
+    <script type="text/javascript" src="js/logout.js"></script>
     <title>EasyMall商城后台管理系统</title>
     <style type="text/css">
         .content {
@@ -34,6 +34,8 @@
                     <li data-options="attributes:{'url':'./item-add.html'}">新增商品</li>
                     <li data-options="attributes:{'url':'./item-list.html'}">查询商品</li>
                 </ul>
+                <span><li><a onclick='logout(1)'>退出登录</a></li>
+                </span>
             </li>
         </ul>
     </div>
@@ -49,7 +51,7 @@
             var userId = "";
             var _ticket = $.cookie("EM_TICKET");
             if (!_ticket) {
-                window.location.href = "login.html";
+                window.location.href = "login.html?mode=1";
                 return;
             }
             $.ajax({
@@ -59,7 +61,7 @@
                 success: function(data) {
                     console.log(data)
                     if (data.status != 200) {
-                        window.location.href = "login.html";
+                        window.location.href = "login.html?mode=1";
                         alert(data.msg);
                     }
 
