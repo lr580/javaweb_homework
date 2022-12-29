@@ -20,6 +20,8 @@ CREATE TABLE t_user (
 /*Data for the table t_user */
 insert  into t_user(user_id,user_name,user_password,user_nickname,user_email,user_type) 
 values ('f577f9f9-159e-4aaf-9332-fd7b294bc208','aa',md5('123'),'李筱雯','aa@163.com',0);
+insert  into t_user(user_id,user_name,user_password,user_nickname,user_email,user_type) 
+values ('f577f9f9-159e-4aaf-9332-fd7b294bc209','bc',md5('123'),'白茶','bc@163.com',1);
 
 select * from t_user;
 

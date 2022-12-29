@@ -6,7 +6,7 @@
 
 2. 启动数据库。将 `main` 分支的 `env/data.sql` 里包含本项目所用的数据库导入。
 
-3. 将 `main` 分支的 `env/nginx.conf` 添加到自己的 Nginx 内，如需修改路径自行修改。对着路径将前端分支代码放入。启动 Nginx。配置即：
+3. 将 `main` 分支的 `env/nginx.conf` 添加到自己的 Nginx 内，如需修改路径自行修改，把 `front` 分支代码丢进去。对着路径将前端分支代码放入。启动 Nginx。配置即：
 
    ```nginx
    server {
