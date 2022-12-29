@@ -1,5 +1,8 @@
 package cn.edu.scnu.service;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -28,4 +31,11 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.selectById(productId);
 	}
 
+	@Override
+	public List<Product> selectProdByName(String productName) {
+		// TODO Auto-generated method stub
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("product_Name",productName);
+		return productMapper.selectByMap(map);
+	}
 }

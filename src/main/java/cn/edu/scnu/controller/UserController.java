@@ -1,83 +1,85 @@
-package cn.edu.scnu.controller;
+package easymall.controller;
+
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import cn.edu.scnu.utils.MapperUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import cn.edu.scnu.pojo.User;
-import cn.edu.scnu.service.UserService;
-import cn.edu.scnu.utils.MD5Util;
-import cn.edu.scnu.utils.MapperUtil;
-import cn.edu.scnu.utils.CookieUtils;
-import cn.edu.scnu.vo.SysResult;
 
-@RestController
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import easymall.po.Admin;
+import easymall.po.User;
+import easymall.service.UserService;
+
+@Controller("userController")
+@RequestMapping("/user")
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
-    @RequestMapping("/user/login")
-    public SysResult login(String userName,String userPassword,HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-        User user = userService.selectByUsername(userName);
-        if (user == null) {
-            return SysResult.build(201, "æ‚¨è¾“å…¥çš„ç”¨æˆ·åé”™è¯¯", null);
-        } else if (user.getUserPassword().equals(MD5Util.md5(userPassword))) {
-            session.setAttribute("user", user);         
-            CookieUtils.setCookie(request, response, "EM_TICKET", user.getUserId());
-            return SysResult.ok();
-        } else {
-            return SysResult.build(201, "æ‚¨è¾“å…¥çš„å¯†ç é”™è¯¯", null);
-        }
-    }
-    @RequestMapping("/user/query/{ticket}")
-	public SysResult checkLoginUser(@PathVariable String ticket) {
-		User user = userService.queryUserJson(ticket);
-		String userJson="";
-		try {
-			userJson = MapperUtil.MP.writeValueAsString(user);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}		
-		// åˆ¤æ–­éç©º
-		if (userJson!=null) {
-			// ç¡®å®æ›¾ç»ç™»å½•è¿‡.ä¹Ÿæ­£åœ¨ç™»å½•ä½¿ç”¨çŠ¶æ€ä¸­
-			return SysResult.build(200, "ok", userJson);
+	
+	@RequestMapping("/login")
+	public String login(User user, HttpSession session, Model model) {
+		User mUser = userService.login(user);
+		if (mUser != null) {
+			session.setAttribute("user", mUser);
+			return "redirect:/index.jsp";	// Ìø×ªµ½Ö÷Ò³
 		} else {
-			return SysResult.build(201, "æŸ¥ä¸åˆ°", null);
+			model.addAttribute("message", "ÓÃ»§ÃûÃÜÂë´íÎó£¡");
+			return "login";
 		}
 	}
-    @RequestMapping("/user/logout")
-	public SysResult logout(HttpSession session, 
-			HttpServletRequest request, HttpServletResponse response) {
-    	session.setAttribute("user", null);         
-        CookieUtils.deleteCookie(request, response, "EM_TICKET");
-        return SysResult.ok();
-    }
-    @RequestMapping("/user/checkUserName")
-	public SysResult checkUsername(String userName) {
-		User user = userService.selectByUsername(userName);
-		if (user == null) {
-			return SysResult.ok();
+//	adminlogin
+	@RequestMapping("/adminlogin")
+	public String adminlogin(Admin admin, HttpSession session, Model model) {
+		Admin admin1 = userService.adminlogin(admin);
+		if (admin1 != null) {
+			session.setAttribute("admin", admin1);
+			return "admin/manage";	// Ìø×ªµ½ºóÌ¨Ö÷Ò³
+		} else {
+			model.addAttribute("message", "ÓÃ»§ÃûÃÜÂë´íÎó£¡");
+			return "admin/login";
 		}
-		return SysResult.build(201, "ç”¨æˆ·åå·²å­˜åœ¨", null);
 	}
-    @RequestMapping("/user/save")
-	public SysResult userSave(User user) {
-		// 1.usernameæ˜¯å¦å·²è¢«æ³¨å†Œ
-		User user1 = userService.selectByUsername(user.getUserName());
-		if (user1!=null) {
-			return SysResult.build(201, "ç”¨æˆ·åå·²å­˜åœ¨", null);
+	
+	@RequestMapping("/regist")
+	public String regist(User user,String valistr,HttpSession session,Model model) {
+		if (user.getUsername() == null || user.getUsername() == "") {
+			model.addAttribute("msg", "ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡");
+			return "regist";
 		}
-		try {
-			userService.userSave(user);
-			return SysResult.ok();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SysResult.build(201, "æ·»åŠ å¤±è´¥", null);
+		if (user.getPassword() == null || user.getPassword() == "") {
+			model.addAttribute("msg", "ÃÜÂë²»ÄÜÎª¿Õ£¡");
+			return "regist";
+		}
+		if (!valistr.equalsIgnoreCase(session.getAttribute("code").toString())) {
+			model.addAttribute("msg", "ÑéÖ¤Âë´íÎó£¡");
+			return "regist";
+		}
+		if (userService.regist(user) > 0){
+			model.addAttribute("msg", "×¢²á³É¹¦");
+			return "regist";
+		} else {
+			model.addAttribute("msg", "×¢²áÊ§°Ü");
+			return "regist";				
 		}
 	}
 
+
+	
+	@RequestMapping(value = "/checkUser", method = RequestMethod.POST)
+	public void check(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String username = request.getParameter("username");
+		if (userService.checkUsername(username)) {
+			response.getWriter().print("ÓÃ»§Ãû" + username + "ÒÑ±»×¢²á£¡");
+		} else {
+			response.getWriter().print("¹§Ï²Äú£¬" + username + "¿ÉÒÔÊ¹ÓÃ£¡");
+		}
+	}
+	
 }

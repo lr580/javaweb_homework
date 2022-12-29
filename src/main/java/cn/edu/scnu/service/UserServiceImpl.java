@@ -1,34 +1,41 @@
-package cn.edu.scnu.service;
-import java.util.UUID;
+package easymall.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import cn.edu.scnu.utils.MD5Util;
-import cn.edu.scnu.mapper.UserMapper;
-import cn.edu.scnu.mapper.ProductMapper;
-import cn.edu.scnu.pojo.Product;
-import cn.edu.scnu.pojo.User;
-@Service
-public class UserServiceImpl  extends ServiceImpl<UserMapper,User> implements UserService{
+
+import easymall.dao.UserDao;
+import easymall.po.Admin;
+import easymall.po.User;
+
+@Service("userService")
+public class UserServiceImpl implements UserService {
+
 	@Autowired
-	private UserMapper userMapper;
+	private UserDao userDao;
 	
-	public User selectByUsername(String userName) {
-		QueryWrapper<User> userQueryWrapper=new QueryWrapper<User>();
-		userQueryWrapper.eq("user_name", userName);
-		return userMapper.selectOne(userQueryWrapper);
-	}
-	
-	public User queryUserJson(String userId) {
-		return userMapper.selectById(userId);
+	@Override
+	public User login(User user) {
+		return userDao.login(user);
 	}
 
-	public void userSave(User user) {
-		user.setUserId(UUID.randomUUID().toString());
-		user.setUserPassword(MD5Util.md5(user.getUserPassword()));
-		userMapper.insert(user);	
+	@Override
+	public boolean checkUsername(String username) {
+		if (userDao.checkUsername(username) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
+	@Override
+	public int regist(User user) {
+		return userDao.regist(user);
+	}
+
+	@Override
+	public Admin adminlogin(Admin admin) {
+		// TODO Auto-generated method stub
+		return userDao.adminlogin(admin);
+	}
+
 }
