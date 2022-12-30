@@ -1,4 +1,4 @@
-package easymall.controller;
+package cn.edu.scnu.controller;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,26 +18,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * ÑéÖ¤Âë
+ * ï¿½ï¿½Ö¤ï¿½ï¿½
  */
 @Controller
 public class ValiImage {
-	// {"ËÎÌå", "»ªÎÄ¿¬Ìå", "ºÚÌå", "»ªÎÄÐÂÎº", "»ªÎÄÁ¥Êé", "Î¢ÈíÑÅºÚ", "¿¬Ìå_GB2312"}
-		private static String[] fontNames = { "ËÎÌå", "»ªÎÄ¿¬Ìå", "ºÚÌå", "Î¢ÈíÑÅºÚ",  "¿¬Ìå_GB2312" };
-		// ¿ÉÑ¡×Ö·û
+	// {"ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îº", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "Î¢ï¿½ï¿½ï¿½Åºï¿½", "ï¿½ï¿½ï¿½ï¿½_GB2312"}
+		private static String[] fontNames = { "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "Î¢ï¿½ï¿½ï¿½Åºï¿½",  "ï¿½ï¿½ï¿½ï¿½_GB2312" };
+		// ï¿½ï¿½Ñ¡ï¿½Ö·ï¿½
 		//"23456789abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ";
 		private static String codes = "23456789abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ";
-		// ±³¾°É«
+		// ï¿½ï¿½ï¿½ï¿½É«
 		private Color bgColor = new Color(255, 255, 255);
-		// »ùÊý(Ò»¸öÎÄ×ÖËùÕ¼µÄ¿Õ¼ä´óÐ¡)
+		// ï¿½ï¿½ï¿½ï¿½(Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½Ä¿Õ¼ï¿½ï¿½Ð¡)
 		private int base = 30;
-		// Í¼Ïñ¿í¶È
+		// Í¼ï¿½ï¿½ï¿½ï¿½
 		private int width = base * 4;
-		// Í¼Ïñ¸ß¶È
+		// Í¼ï¿½ï¿½ß¶ï¿½
 		private int height = base;
-		// ÎÄ×Ö¸öÊý
+		// ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½
 		private int len = 4;
-		// ÉèÖÃ×ÖÌå´óÐ¡
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 		private int fontSize = 22;
 		
 		private BufferedImage img = null;
@@ -47,38 +47,38 @@ public class ValiImage {
 		public void validateCode(HttpServletRequest request,
 				HttpServletResponse response) throws ServletException, IOException {
 			// TODO Auto-generated method stub
-			// ÉèÖÃÏìÓ¦±¨Í·ÐÅÏ¢
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Í·ï¿½ï¿½Ï¢
 			response.setHeader("Pragma", "No-cache");
 			response.setHeader("Cache-Control", "no-cache");
 			response.setDateHeader("Expires", 0);
-			// ÉèÖÃÏìÓ¦µÄMIMEÀàÐÍ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½MIMEï¿½ï¿½ï¿½ï¿½
 			response.setContentType("image/jpeg");
 
 		
-			// 1.´´½¨Í¼Æ¬»º³åÇø¶ÔÏó, ²¢ÉèÖÃ¿í¸ßºÍÍ¼ÏñÀàÐÍ
+			// 1.ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ßºï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-			// 2.µÃµ½»æÖÆ»·¾³
+			// 2.ï¿½Ãµï¿½ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½
 			g2 = (Graphics2D) img.getGraphics();
-			// 3.¿ªÊ¼»­Í¼
-			// ÉèÖÃ±³¾°É«
+			// 3.ï¿½ï¿½Ê¼ï¿½ï¿½Í¼
+			// ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½É«
 			g2.setColor(bgColor);
 			g2.fillRect(0, 0, width, height);
 			
-			StringBuffer sb = new StringBuffer();// ÓÃÀ´×°ÔØÑéÖ¤ÂëÉÏµÄÎÄ±¾
+			StringBuffer sb = new StringBuffer();// ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Ïµï¿½ï¿½Ä±ï¿½
 
 			for (int i = 0; i < len; i++) {
-				// ÉèÖÃ»­±ÊÑÕÉ« -- Ëæ»ú
+				// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½É« -- ï¿½ï¿½ï¿½
 				// g2.setColor(new Color(255, 0, 0));
 				g2.setColor(new Color(getRandom(0, 150), getRandom(0, 150),getRandom(0, 150)));
 
-				// ÉèÖÃ×ÖÌå
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				g2.setFont(new Font(fontNames[getRandom(0, fontNames.length)], Font.BOLD, fontSize));
 
-				// Ðý×ªÎÄ×Ö(-45~+45)
+				// ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½(-45~+45)
 				int theta = getRandom(-45, 45);
 				g2.rotate(theta * Math.PI / 180, 7 + i * base, height - 8);
 
-				// Ð´×Ö
+				// Ð´ï¿½ï¿½
 				String code = codes.charAt(getRandom(0, codes.length())) + "";
 				g2.drawString(code, 7 + i * base, height - 8);
 				sb.append(code);
@@ -87,9 +87,9 @@ public class ValiImage {
 			
 			
 
-			// »­¸ÉÈÅÏß
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			for (int i = 0; i < len + 2; i++) {
-				// ÉèÖÃ»­±ÊÑÕÉ« -- Ëæ»ú
+				// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½É« -- ï¿½ï¿½ï¿½
 				// g2.setColor(new Color(255, 0, 0));
 				g2.setColor(new Color(getRandom(0, 150), getRandom(0, 150),
 						getRandom(0, 150)));
@@ -106,11 +106,11 @@ public class ValiImage {
 			se.setAttribute("code", sb.toString());
 
 
-			// ÊÍ·ÅÍ¼ÐÎ×ÊÔ´
+			// ï¿½Í·ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ô´
 			g2.dispose();
 			try {
 				OutputStream os = response.getOutputStream();
-				// Êä³öÍ¼Ïñµ½Ò³Ãæ
+				// ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ò³ï¿½ï¿½
 				ImageIO.write(img, "JPEG", os);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -119,7 +119,7 @@ public class ValiImage {
 		
 		
 		/*
-		 * Éú³ÉËæ»úÊýµÄ·½·¨
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 		 */
 		private static int getRandom(int start, int end) {
 			Random random = new Random();

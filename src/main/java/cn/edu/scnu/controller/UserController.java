@@ -1,4 +1,4 @@
-package easymall.controller;
+package cn.edu.scnu.controller;
 
 import java.io.IOException;
 
@@ -12,9 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import easymall.po.Admin;
-import easymall.po.User;
-import easymall.service.UserService;
+import cn.edu.scnu.po.Admin;
+import cn.edu.scnu.po.User;
+import cn.edu.scnu.service.UserService;
 
 @Controller("userController")
 @RequestMapping("/user")
@@ -28,9 +28,9 @@ public class UserController {
 		User mUser = userService.login(user);
 		if (mUser != null) {
 			session.setAttribute("user", mUser);
-			return "redirect:/index.jsp";	// Ìø×ªµ½Ö÷Ò³
+			return "redirect:/index.jsp";	// ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ò³
 		} else {
-			model.addAttribute("message", "ÓÃ»§ÃûÃÜÂë´íÎó£¡");
+			model.addAttribute("message", "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return "login";
 		}
 	}
@@ -40,9 +40,9 @@ public class UserController {
 		Admin admin1 = userService.adminlogin(admin);
 		if (admin1 != null) {
 			session.setAttribute("admin", admin1);
-			return "admin/manage";	// Ìø×ªµ½ºóÌ¨Ö÷Ò³
+			return "admin/manage";	// ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½Ò³
 		} else {
-			model.addAttribute("message", "ÓÃ»§ÃûÃÜÂë´íÎó£¡");
+			model.addAttribute("message", "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return "admin/login";
 		}
 	}
@@ -50,22 +50,22 @@ public class UserController {
 	@RequestMapping("/regist")
 	public String regist(User user,String valistr,HttpSession session,Model model) {
 		if (user.getUsername() == null || user.getUsername() == "") {
-			model.addAttribute("msg", "ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡");
+			model.addAttribute("msg", "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½");
 			return "regist";
 		}
 		if (user.getPassword() == null || user.getPassword() == "") {
-			model.addAttribute("msg", "ÃÜÂë²»ÄÜÎª¿Õ£¡");
+			model.addAttribute("msg", "ï¿½ï¿½ï¿½ë²»ï¿½ï¿½Îªï¿½Õ£ï¿½");
 			return "regist";
 		}
 		if (!valistr.equalsIgnoreCase(session.getAttribute("code").toString())) {
-			model.addAttribute("msg", "ÑéÖ¤Âë´íÎó£¡");
+			model.addAttribute("msg", "ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return "regist";
 		}
 		if (userService.regist(user) > 0){
-			model.addAttribute("msg", "×¢²á³É¹¦");
+			model.addAttribute("msg", "×¢ï¿½ï¿½É¹ï¿½");
 			return "regist";
 		} else {
-			model.addAttribute("msg", "×¢²áÊ§°Ü");
+			model.addAttribute("msg", "×¢ï¿½ï¿½Ê§ï¿½ï¿½");
 			return "regist";				
 		}
 	}
@@ -76,9 +76,9 @@ public class UserController {
 	public void check(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String username = request.getParameter("username");
 		if (userService.checkUsername(username)) {
-			response.getWriter().print("ÓÃ»§Ãû" + username + "ÒÑ±»×¢²á£¡");
+			response.getWriter().print("ï¿½Ã»ï¿½ï¿½ï¿½" + username + "ï¿½Ñ±ï¿½×¢ï¿½á£¡");
 		} else {
-			response.getWriter().print("¹§Ï²Äú£¬" + username + "¿ÉÒÔÊ¹ÓÃ£¡");
+			response.getWriter().print("ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½" + username + "ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã£ï¿½");
 		}
 	}
 	

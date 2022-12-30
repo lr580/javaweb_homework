@@ -1,4 +1,4 @@
-package easymall.service;
+package cn.edu.scnu.service;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import easymall.dao.ProductsDao;
-import easymall.po.Category;
-import easymall.po.Products;
-import easymall.pojo.MyCategory;
-import easymall.pojo.MyProducts;
+import cn.edu.scnu.dao.ProductsDao;
+import cn.edu.scnu.po.Category;
+import cn.edu.scnu.po.Products;
+import cn.edu.scnu.pojo.MyCategory;
+import cn.edu.scnu.pojo.MyProducts;
 
 @Service("productsService")
 public class ProductsServiceImpl implements ProductsService {
@@ -52,29 +52,29 @@ public class ProductsServiceImpl implements ProductsService {
 
 	@Override
 	public String save(MyProducts myproducts, HttpServletRequest request) {
-		// 1.ÅÐ¶Ïºó×ºÊÇ·ñºÏ·¨
-		// »ñÈ¡Í¼Ãû³Æ£¬ºó×ºÃû³Æ
+		// 1.ï¿½Ð¶Ïºï¿½×ºï¿½Ç·ï¿½Ï·ï¿½
+		// ï¿½ï¿½È¡Í¼ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½
 		String originName = myproducts.getImgurl().getOriginalFilename();
 
-		// ½ØÈ¡ºó×ºsubstring split (".png" ".jpg")
+		// ï¿½ï¿½È¡ï¿½ï¿½×ºsubstring split (".png" ".jpg")
 		String extName = originName.substring(originName.lastIndexOf("."));
 
 		if (!(extName.equalsIgnoreCase(".jpg") || extName.equalsIgnoreCase(".png")
-				|| extName.equalsIgnoreCase(".gif"))) { // Í¼Æ¬ºó×º²»ºÏ·¨
-			return "Í¼Æ¬ºó×º²»ºÏ·¨£¡";
+				|| extName.equalsIgnoreCase(".gif"))) { // Í¼Æ¬ï¿½ï¿½×ºï¿½ï¿½ï¿½Ï·ï¿½
+			return "Í¼Æ¬ï¿½ï¿½×ºï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½";
 		}
 
-		// ÅÐ¶ÏÄ¾Âí£¨javaµÄÀàÅÐ¶ÏÊÇ·ñÊÇÍ¼Æ¬ÊôÐÔ£¬Ò²¿ÉÒÔÒýÈëµÚÈý·½jar°üÅÐ¶Ï£©
+		// ï¿½Ð¶ï¿½Ä¾ï¿½ï¿½javaï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Ô£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jarï¿½ï¿½ï¿½Ð¶Ï£ï¿½
 		try {
 			BufferedImage bufImage = ImageIO.read(myproducts.getImgurl().getInputStream());
 			bufImage.getHeight();
 			bufImage.getWidth();
 		} catch (Exception e) {
-			return "¸ÃÎÄ¼þ²»ÊÇÍ¼Æ¬£¡";
+			return "ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½";
 		}
 
-		// 2.´´½¨upload¿ªÊ¼µÄÒ»¸öÂ·¾¶
-		// Éú³É¶à¼¶Â·¾¶
+		// 2.ï¿½ï¿½ï¿½ï¿½uploadï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½Â·ï¿½ï¿½
+		// ï¿½ï¿½ï¿½É¶à¼¶Â·ï¿½ï¿½
 		String imgurl = "";
 		// /a/2/e/a/2/3/j/p
 		for (int i = 0; i < 8; i++) {
@@ -89,13 +89,13 @@ public class ProductsServiceImpl implements ProductsService {
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		// ÉÏ´«ÎÄ¼þ
+		// ï¿½Ï´ï¿½ï¿½Ä¼ï¿½
 		try {
 			myproducts.getImgurl().transferTo(file);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		// Æ´½ÓÍ¼Æ¬´æÈëÊý¾Ý¿âµÄÂ·¾¶
+		// Æ´ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Â·ï¿½ï¿½
 		imgurl = "/upload" + imgurl + "/" + originName;
 		String id = UUID.randomUUID().toString();
 		Products products = new Products();
@@ -115,7 +115,7 @@ public class ProductsServiceImpl implements ProductsService {
 			System.out.println(products.getImgurl());
 			productsDao.save(products);
 		}
-		return "ÉÌÆ·Ìí¼Ó³É¹¦";
+		return "ï¿½ï¿½Æ·ï¿½ï¿½Ó³É¹ï¿½";
 	}
 
 	@Override
@@ -139,34 +139,34 @@ public class ProductsServiceImpl implements ProductsService {
 		category.setName(mycategory.getName());
 		category.setDescription(mycategory.getDescription());
 		productsDao.savecategory(category);
-		return "ÉÌÆ·Àà±ðÌí¼Ó³É¹¦";
+		return "ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Ó³É¹ï¿½";
 	}
 
 	@Override
 	public String update(String pid,MyProducts myproducts, HttpServletRequest request) {
-		// 1.ÅÐ¶Ïºó×ºÊÇ·ñºÏ·¨
-				// »ñÈ¡Í¼Ãû³Æ£¬ºó×ºÃû³Æ
+		// 1.ï¿½Ð¶Ïºï¿½×ºï¿½Ç·ï¿½Ï·ï¿½
+				// ï¿½ï¿½È¡Í¼ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½
 				String originName = myproducts.getImgurl().getOriginalFilename();
 
-				// ½ØÈ¡ºó×ºsubstring split (".png" ".jpg")
+				// ï¿½ï¿½È¡ï¿½ï¿½×ºsubstring split (".png" ".jpg")
 				String extName = originName.substring(originName.lastIndexOf("."));
 
 				if (!(extName.equalsIgnoreCase(".jpg") || extName.equalsIgnoreCase(".png")
-						|| extName.equalsIgnoreCase(".gif"))) { // Í¼Æ¬ºó×º²»ºÏ·¨
-					return "Í¼Æ¬ºó×º²»ºÏ·¨£¡";
+						|| extName.equalsIgnoreCase(".gif"))) { // Í¼Æ¬ï¿½ï¿½×ºï¿½ï¿½ï¿½Ï·ï¿½
+					return "Í¼Æ¬ï¿½ï¿½×ºï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½";
 				}
 
-				// ÅÐ¶ÏÄ¾Âí£¨javaµÄÀàÅÐ¶ÏÊÇ·ñÊÇÍ¼Æ¬ÊôÐÔ£¬Ò²¿ÉÒÔÒýÈëµÚÈý·½jar°üÅÐ¶Ï£©
+				// ï¿½Ð¶ï¿½Ä¾ï¿½ï¿½javaï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Ô£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jarï¿½ï¿½ï¿½Ð¶Ï£ï¿½
 				try {
 					BufferedImage bufImage = ImageIO.read(myproducts.getImgurl().getInputStream());
 					bufImage.getHeight();
 					bufImage.getWidth();
 				} catch (Exception e) {
-					return "¸ÃÎÄ¼þ²»ÊÇÍ¼Æ¬£¡";
+					return "ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½";
 				}
 
-				// 2.´´½¨upload¿ªÊ¼µÄÒ»¸öÂ·¾¶
-				// Éú³É¶à¼¶Â·¾¶
+				// 2.ï¿½ï¿½ï¿½ï¿½uploadï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½Â·ï¿½ï¿½
+				// ï¿½ï¿½ï¿½É¶à¼¶Â·ï¿½ï¿½
 				String imgurl = "";
 				// /a/2/e/a/2/3/j/p
 				for (int i = 0; i < 8; i++) {
@@ -181,13 +181,13 @@ public class ProductsServiceImpl implements ProductsService {
 				if (!file.exists()) {
 					file.mkdirs();
 				}
-				// ÉÏ´«ÎÄ¼þ
+				// ï¿½Ï´ï¿½ï¿½Ä¼ï¿½
 				try {
 					myproducts.getImgurl().transferTo(file);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				// Æ´½ÓÍ¼Æ¬´æÈëÊý¾Ý¿âµÄÂ·¾¶
+				// Æ´ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Â·ï¿½ï¿½
 				imgurl = "/upload" + imgurl + "/" + originName;
 //				String id = UUID.randomUUID().toString();
 				Products products = new Products();
@@ -207,7 +207,7 @@ public class ProductsServiceImpl implements ProductsService {
 					System.out.println(products.getImgurl());
 					productsDao.update(products);
 				}
-				return "ÉÌÆ·ÐÞ¸Ä³É¹¦";
+				return "ï¿½ï¿½Æ·ï¿½Þ¸Ä³É¹ï¿½";
 	}
 
 	@Override

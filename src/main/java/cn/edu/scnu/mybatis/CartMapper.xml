@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="easymall.dao.CartDao">
+
+	<!-- 查找指定用户的购物车是否存在商品 -->
+	<select id="findCart" parameterType="easymall.po.Cart" resultType="easymall.po.Cart">
+		select * from cart where user_id=#{user_id} and pid=#{pid}
+	</select>
+	
+	<!-- 添加商品到购物车 -->
+	<insert id="addCart" parameterType="easymall.po.Cart">
+		insert into cart(user_id,pid,num) values(#{user_id},#{pid},#{num})
+	</insert>
+	
+	<!-- 修改购物车商品数量 -->
+	<update id="updateCart" parameterType="easymall.po.Cart">
+		update cart set num=num + #{num} where cartID=#{cartID}
+	</update>
+	
+	<!-- 显示购物车 -->
+	<select id="showcart" parameterType="Integer" resultType="easymall.pojo.MyCart">
+		select cartID,pid,num,name,price,imgurl from cart,products where user_id=#{user_id} and cart.pid=products.id
+	</select>
+	
+	<!-- 修改购物车商品数量 -->
+	<update id="updateBuyNum" parameterType="easymall.po.Cart">
+		update cart set num=#{num} where cartID=#{cartID}
+	</update>
+	
+	<!-- 删除购物车中的商品 -->
+	<delete id="delCart" parameterType="Integer">
+		delete from cart where cartID=#{cartID}
+	</delete>
+	
+	<!-- 根据cartID查找购物车 -->
+	<select id="findByCartID" resultType="easymall.pojo.MyCart" parameterType="Integer">
+		select cartID,pid,num,name,price,imgurl from cart,products where cart.pid=products.id and cartID=#{cartID}
+	</select>
+	
+</mapper>

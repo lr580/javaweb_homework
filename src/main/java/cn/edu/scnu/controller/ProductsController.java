@@ -1,4 +1,4 @@
-package easymall.controller;
+package cn.edu.scnu.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import easymall.po.Category;
-import easymall.po.Products;
-import easymall.service.ProductsService;
+import cn.edu.scnu.po.Category;
+import cn.edu.scnu.po.Products;
+import cn.edu.scnu.service.ProductsService;
 
 @Controller("productsController")
 public class ProductsController {
@@ -23,41 +23,41 @@ public class ProductsController {
 	
 	@RequestMapping("/prodlist")
 	public String prodlist(String name, Integer category, String minprice, String maxprice, Model model) {
-		// ²éÕÒÉÌÆ·±íÖÐËùÓÐµÄÉÌÆ·Àà±ð
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 		List<Category> categorys = productsService.allcategorys();
 		model.addAttribute("categorys", categorys);
 		
-		// ÎªËÑË÷Ìõ¼þÉèÖÃÄ¬ÈÏÖµ ²¢¼ì²éÌõ¼þÊÇ·ñºÏ·¨
-		// Ä¬ÈÏ0µ½×î´óÖµ
+		// Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Öµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ï·ï¿½
+		// Ä¬ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 		double _minPrice = 0;
 		Double _maxPrice = Double.MAX_VALUE;
 		
-		// Ö»ÄÜÊäÈëÊý×Ö
+		// Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String reg = "^\\d+$";
 		if (minprice != null && !"".equals(minprice.trim()) && minprice.matches(reg)) {
 			_minPrice = Double.parseDouble(minprice);
 		}
 		if (maxprice != null && !"".equals(maxprice.trim()) && maxprice.matches(reg)) {
-			// ×î¸ß¼Û¸ñÈç¹û´óÓÚµÈÓÚ×îµÍ¼Û¸ñ
+			// ï¿½ï¿½ß¼Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½Í¼Û¸ï¿½
 			if (Double.parseDouble(maxprice) >= _minPrice) {
 				_maxPrice = Double.parseDouble(maxprice);
 			}
 		}
-		// ´´½¨map ÓÃÓÚ´æ·Å²éÑ¯Ìõ¼þ
+		// ï¿½ï¿½ï¿½ï¿½map ï¿½ï¿½ï¿½Ú´ï¿½Å²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 		Map<String, Object> map = new HashMap<>();
 		map.put("name", name);
 		map.put("category", category);
 		map.put("minPrice", _minPrice);
 		map.put("maxPrice", _maxPrice);
-		// ¸ù¾ÝÌõ¼þ²éÑ¯·ûºÏÌõ¼þµÄÉÌÆ·ÐÅÏ¢
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
 		List<Products> products = productsService.prodlist(map);
-		// »ØÌî²éÑ¯Êý¾Ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 		model.addAttribute("name", name);
 		model.addAttribute("minPrice", _minPrice);
 		model.addAttribute("maxPrice", _maxPrice);
-		// ²éÑ¯½á¹û±©Â¶¸øÇ°¶Ë
+		// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½Ç°ï¿½ï¿½
 		model.addAttribute("products", products);
-		// ·µ»Øµ½/WEB-INF/jsp/prod_list.jsp
+		// ï¿½ï¿½ï¿½Øµï¿½/WEB-INF/jsp/prod_list.jsp
 		return "prod_list";
 	}
 	
@@ -65,7 +65,7 @@ public class ProductsController {
 	public String prodInfo(String pid, Model model) {
 		Products product = productsService.oneProduct(pid);
 		model.addAttribute("product", product);
-		// ·µ»Øµ½/WEB-INF/jsp/prod_list.jsp
+		// ï¿½ï¿½ï¿½Øµï¿½/WEB-INF/jsp/prod_list.jsp
 		return "prod_info";
 	}
 	
@@ -73,7 +73,7 @@ public class ProductsController {
 	public String prodclass(@PathVariable Integer proclass, Model model) {
 		List<Products> products = productsService.proclass(proclass);
 		model.addAttribute("products", products);
-		// ·µ»Øµ½/WEB-INF/jsp/prod_info.jsp
+		// ï¿½ï¿½ï¿½Øµï¿½/WEB-INF/jsp/prod_info.jsp
 		return "forward:/WEB-INF/jsp/prod_list.jsp";
 	}
 

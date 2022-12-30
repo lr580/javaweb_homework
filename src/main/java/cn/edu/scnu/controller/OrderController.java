@@ -1,4 +1,4 @@
-package easymall.controller;
+package cn.edu.scnu.controller;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -15,15 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import easymall.po.OrderItem;
-import easymall.po.Orders;
-import easymall.po.Products;
-import easymall.po.User;
-import easymall.pojo.MyCart;
-import easymall.pojo.OrderInfo;
-import easymall.service.CartService;
-import easymall.service.OrderService;
-import easymall.service.ProductsService;
+import cn.edu.scnu.po.OrderItem;
+import cn.edu.scnu.po.Orders;
+import cn.edu.scnu.po.Products;
+import cn.edu.scnu.po.User;
+import cn.edu.scnu.pojo.MyCart;
+import cn.edu.scnu.pojo.OrderInfo;
+import cn.edu.scnu.service.CartService;
+import cn.edu.scnu.service.OrderService;
+import cn.edu.scnu.service.ProductsService;
 
 @Controller("orderController")
 @RequestMapping("/order")
@@ -38,11 +38,11 @@ public class OrderController extends BaseController{
 	
 	@RequestMapping("/order_add")
 	public String order_add(String cartIds, Model model) {
-		// 1.½«¹ºÎï³µÖÐËùÓÐÑ¡ÖÐÉÌÆ·µÄcartID×éºÏÆðÀ´µÄ×Ö·û´®²ð·ÖÎªÊý×é
+		// 1.ï¿½ï¿½ï¿½ï¿½ï¿½ï³µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½cartIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 		String[] arrCartIds = cartIds.split(",");
 		
 		List<MyCart> carts = new ArrayList<MyCart>();
-		// 2.±éÀúÊý×é£¬¸ù¾ÝcartID±àºÅ²éÕÒ¹ºÎï³µ£¬Ìí¼Óµ½cartsÖÐ
+		// 2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½cartIDï¿½ï¿½Å²ï¿½ï¿½Ò¹ï¿½ï¿½ï³µï¿½ï¿½ï¿½ï¿½Óµï¿½cartsï¿½ï¿½
 		for (String cid : arrCartIds) {
 			Integer cartID = Integer.parseInt(cid);
 			MyCart cart = cartService.findByCartID(cartID);
@@ -60,43 +60,43 @@ public class OrderController extends BaseController{
 		Timestamp timeStamp = Timestamp.valueOf(time);
 		User user = (User)session.getAttribute("user");
 		String orderId = UUID.randomUUID().toString();
-		Orders myOrder = new Orders(orderId, null, receiverinfo, 0, timeStamp, user.getId(),0,0);	// paystateÄ¬ÈÏÊÇ0£¬±íÊ¾Î´Ö§¸¶
+		Orders myOrder = new Orders(orderId, null, receiverinfo, 0, timeStamp, user.getId(),0,0);	// paystateÄ¬ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½Ê¾Î´Ö§ï¿½ï¿½
 		orderService.addOrder(cartIds, myOrder);
 		return "forward:/order/showorder";
 	}
 	
 	@RequestMapping("/showorder")
 	public String showorder(HttpSession session, Model model) {
-		// 1.»ñÈ¡µ±Ç°µÇÂ¼ÓÃ»§
+		// 1.ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½Â¼ï¿½Ã»ï¿½
 		User user = (User)session.getAttribute("user");
-		// 2.¸ù¾ÝÓÃ»§id²éÑ¯¸ÃÓÃ»§µÄËùÓÐ¶©µ¥ÐÅÏ¢£¬²éÑ¯orders±í
+		// 2.ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½idï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ñ¯ordersï¿½ï¿½
 		List<OrderInfo> orderInfoList = findOrderInfoByUserId(user.getId());
-		// 3.½«¸ÃÓÃ»§µÄËùÓÐ¶©µ¥ÐÅÏ¢µÄlist¼¯ºÏ´æÈërequestÓòÖÐ£¬×ª·¢µ½order_list.jspÖÐÏÔÊ¾
+		// 3.ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½listï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½requestï¿½ï¿½ï¿½Ð£ï¿½×ªï¿½ï¿½ï¿½ï¿½order_list.jspï¿½ï¿½ï¿½ï¿½Ê¾
 		model.addAttribute("orderInfos", orderInfoList);
 		return "order_list";
 	}
 	
 	private List<OrderInfo> findOrderInfoByUserId(Integer userId) {
 		List<OrderInfo> orderInfoList = new ArrayList<OrderInfo>();
-		// 1.¸ù¾ÝÓÃ»§id²éÑ¯¸ÃÓÃ»§µÄËùÓÐ¶©µ¥ÐÅÏ¢£¬²éÑ¯orders±í
+		// 1.ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½idï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ñ¯ordersï¿½ï¿½
 		List<Orders> orderList = orderService.findOrderByUserId(userId);
-		// 2.±éÀúÃ¿Ò»¸ö¶©µ¥£¬Í¨¹ý¶©µ¥id²éÑ¯µ±Ç°¶©µ¥ÖÐ°üº¬µÄËùÓÐ¶©µ¥ÏîÐÅÏ¢
+		// 2.ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		for (Orders order : orderList) {
-			// ¸ù¾ÝÓÃ»§order_id²éÑ¯¸Ã¶©µ¥ºÅµÄËùÓÐ¶©µ¥ÏîÐÅÏ¢£¬²éÑ¯orderitem±í
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½order_idï¿½ï¿½Ñ¯ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ñ¯orderitemï¿½ï¿½
 			List<OrderItem> orderitems = orderService.orderitem(order.getId());
-			// 3.±éÀúÃ¿Ò»¸ö¶©µ¥Ïî£¬Í¨¹ý¶©µ¥Ïî»ñÈ¡ÉÌÆ·ÐÅÏ¢¼°ÉÌÆ·µÄ¹ºÂòÊýÁ¿
+			// 3.ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î£¬Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Map<Products, Integer> map = new HashMap<Products, Integer>();
 			for (OrderItem orderItem : orderitems) {
-				// 3.1.»ñÈ¡ÉÌÆ·id£¬Í¨¹ýÉÌÆ·id²éÑ¯ÉÌÆ·ÐÅÏ¢£¬·µ»ØProduct¶ÔÏó
+				// 3.1.ï¿½ï¿½È¡ï¿½ï¿½Æ·idï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Æ·idï¿½ï¿½Ñ¯ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Productï¿½ï¿½ï¿½ï¿½
 				Products product = productsService.oneProduct(orderItem.getProduct_id());
-				// 3.2.½«ÉÌÆ·ÐÅÏ¢ºÍ¹ºÂòÊýÁ¿´æÈëmapÖÐ
+				// 3.2.ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mapï¿½ï¿½
 				map.put(product, orderItem.getBuynum());
 			}
-			// 4.½«¶©µ¥ÐÅÏ¢ºÍËùÓÐµÄ¶©µ¥ÏîÐÅÏ¢´æÈëOrderInfoÖÐ
+			// 4.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½OrderInfoï¿½ï¿½
 			OrderInfo orderInfo = new OrderInfo();
 			orderInfo.setOrder(order);
 			orderInfo.setMap(map);
-			// 5.½«Ò»¸öÍêÕûµÄ¶©µ¥ÐÅÏ¢´æÈëList¼¯ºÏÖÐ
+			// 5.ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Listï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			orderInfoList.add(orderInfo);
 		}
 		return orderInfoList;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="easymall.dao.OrderItemDao">
+	
+	<!-- 添加OrderItem表记录 -->
+	<insert id="addOrderItem" parameterType="easymall.po.OrderItem">
+		insert into orderitem(order_id, product_id,buynum) values(#{order_id},#{product_id},#{buynum})
+	</insert>
+	
+	<!-- 显示订单 详细商品信息 -->
+	<select id="orderitem" parameterType="String" resultType="easymall.po.OrderItem">
+		select * from orderitem where order_id=#{order_id}
+	</select>
+	
+	<!-- 删除订单项 -->
+	<delete id="delorderitem" parameterType="String">
+		delete from orderitem where order_id=#{id}
+	</delete>
+	
+</mapper>

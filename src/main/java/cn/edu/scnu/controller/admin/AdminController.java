@@ -1,4 +1,4 @@
-package easymall.controller.admin;
+package cn.edu.scnu.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

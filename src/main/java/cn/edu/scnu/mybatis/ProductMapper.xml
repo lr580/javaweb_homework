@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="easymall.dao.ProductsDao">
+
+	<select id="allcategorys" resultType="easymall.po.Category">
+		select * from category
+	</select>
+	
+	<select id="prodlist" resultType="easymall.po.Products" parameterType="map">
+		select * from products where (price between #{minPrice} and #{maxPrice})
+		<if test="name!=null and name!=''">
+			and name like concat('%',#{name},'%')
+		</if>
+		<if test="category!=null and category!=''">
+			and category=#{category}
+		</if>
+	</select>
+	
+	<select id="oneProduct" parameterType="String" resultType="easymall.po.Products">
+		select * from products where id=#{pid}
+	</select>
+	<select id="oneCategory" parameterType="String" resultType="easymall.po.Category">
+		select * from category where id=#{pid}	
+	</select>
+	
+	<select id="proclass" parameterType="Integer" resultType="easymall.po.Products">
+		select * from products where category=#{category}
+	</select>
+	
+	<insert id="save" parameterType="easymall.po.Products">
+		insert into products(id,name,price,category,pnum,imgurl,description) 
+			values(#{id},#{name},#{price},#{category},#{pnum},#{imgurl},#{description})
+	</insert>
+	
+	<select id="findByImgurl" parameterType="String" resultType="easymall.po.Products">
+		select * from products where imgurl=#{imgurl}
+	</select>
+	
+		<!-- 删除商品 -->
+	<delete id="deleteproduct" parameterType="String">
+		delete from products where id=#{pid}
+	</delete>
+	<!-- 删除商品类别 deletecategory -->
+	<delete id="deletecategory" parameterType="String">
+		delete from category where id=#{id}
+	</delete>
+	<!-- 添加商品类别
+	public void savecategory(MyCategory mycategory); -->
+	<insert id="savecategory" parameterType="easymall.po.Category">
+		insert into category(id,name,description) 
+			values(#{id},#{name},#{description})
+	</insert>
+	<!-- 修改商品 -->
+	<update id="update" parameterType="easymall.po.Products">
+		update products set name=#{name}, price=#{price}, category=#{category}, pnum=#{pnum},
+		imgurl=#{imgurl}, description=#{description} where id=#{id}	
+	</update>
+	<!-- 修改商品类别 -->
+	<update id="updateCategory" parameterType="easymall.po.Category">
+		update category set name=#{name}, description=#{description} where id=#{id}
+	</update>
+	
+</mapper>

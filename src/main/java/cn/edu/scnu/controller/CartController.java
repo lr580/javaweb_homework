@@ -1,4 +1,4 @@
-package easymall.controller;
+package cn.edu.scnu.controller;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import easymall.po.Cart;
-import easymall.po.User;
-import easymall.pojo.MyCart;
-import easymall.service.CartService;
+import cn.edu.scnu.po.Cart;
+import cn.edu.scnu.po.User;
+import cn.edu.scnu.pojo.MyCart;
+import cn.edu.scnu.service.CartService;
 
 @Controller("cartController")
 @RequestMapping("/cart")

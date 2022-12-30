@@ -1,13 +1,13 @@
-package easymall.service;
+package cn.edu.scnu.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import easymall.dao.CartDao;
-import easymall.po.Cart;
-import easymall.pojo.MyCart;
+import cn.edu.scnu.dao.CartDao;
+import cn.edu.scnu.po.Cart;
+import cn.edu.scnu.pojo.MyCart;
 
 @Service("cartService")
 public class CartServiceImpl implements CartService {

@@ -1,4 +1,4 @@
-package easymall.controller;
+package cn.edu.scnu.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,13 +16,13 @@ public class IndexController {
 	
 	@RequestMapping("/login")
 	public String login() {
-		return "login";	// Ìø×ªµ½/WEB-INF/jsp/login.jsp
+		return "login";	// ï¿½ï¿½×ªï¿½ï¿½/WEB-INF/jsp/login.jsp
 	}
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/index.jsp";	// Ìø×ªµ½Ö÷Ò³
+		return "redirect:/index.jsp";	// ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ò³
 	}
 	
 }

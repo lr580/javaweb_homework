@@ -1,18 +1,18 @@
-package easymall.service;
+package cn.edu.scnu.service;
 
-import easymall.po.Admin;
-import easymall.po.User;
+import cn.edu.scnu.po.Admin;
+import cn.edu.scnu.po.User;
 
 public interface UserService {
-	//ÓÃ»§µÇÂ¼¹¦ÄÜ£¬·µ»ØUserÀà¶ÔÏó 
+	//ï¿½Ã»ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Userï¿½ï¿½ï¿½ï¿½ï¿½ 
 	public User login(User user);
 	
-	//¼ì²éÓÃ»§ÊÇ·ñÒÑ±»×¢²á 
+	//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ç·ï¿½ï¿½Ñ±ï¿½×¢ï¿½ï¿½ 
 	public boolean checkUsername(String username);
 	
-	//×¢²áÓÃ»§
+	//×¢ï¿½ï¿½ï¿½Ã»ï¿½
 	public int regist(User user);
-//	ºóÌ¨µÇÂ¼
+//	ï¿½ï¿½Ì¨ï¿½ï¿½Â¼
 	public Admin adminlogin(Admin admin);
 
 }

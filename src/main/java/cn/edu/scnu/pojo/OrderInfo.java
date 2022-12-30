@@ -1,14 +1,14 @@
-package easymall.pojo;
+package cn.edu.scnu.pojo;
 
 import java.util.Map;
 
-import easymall.po.Orders;
-import easymall.po.Products;
+import cn.edu.scnu.po.Orders;
+import cn.edu.scnu.po.Products;
 
 public class OrderInfo {
 	
-	private Orders orders;	// ¶©µ¥ÐÅÏ¢
-	private Map<Products, Integer> map;		// ¸Ã¶©µ¥ÖÐµÄËùÓÐ¶©µ¥ÏîÐÅÏ¢
+	private Orders orders;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	private Map<Products, Integer> map;		// ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	
 	public Orders getOrder() {
 		return orders;

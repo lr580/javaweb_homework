@@ -1,4 +1,4 @@
-package easymall.controller.admin;
+package cn.edu.scnu.controller.admin;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -54,24 +54,24 @@ public class ChartsController {
 	public String exportCharts(String mypath,Model model) {
 		try {
 			goExport(mypath);
-			model.addAttribute("msg","µ¼³ö³É¹¦£¡");
+			model.addAttribute("msg","ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 		} catch (Exception e) {
-			model.addAttribute("msg","µ¼³öÊ§°Ü£¡Çë¼ì²éÂ·¾¶¼°±í¸ñºó×ºÃûÊÇ·ñÕýÈ·£¡");
+			model.addAttribute("msg","ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·ï¿½ï¿½");
 		}
 		return "echarts";
 	}
 	public void goExport(String mypath) throws Exception{
 				Workbook workbook=new XSSFWorkbook();
-				Sheet sheet=workbook.createSheet("ÏúÊÛ°ñµ¥");
+				Sheet sheet=workbook.createSheet("ï¿½ï¿½ï¿½Û°ï¿½");
 				FileOutputStream fout=new FileOutputStream(mypath);
 				List<MySales> salesList=salesDao.allSales();
 				Row row=sheet.createRow(0);
 				Cell cell=row.createCell(0);
-				cell.setCellValue("ÀàÐÍ");
+				cell.setCellValue("ï¿½ï¿½ï¿½ï¿½");
 				Cell cell1=row.createCell(1);
-				cell1.setCellValue("ÏúÁ¿£¨¸ö£©");
+				cell1.setCellValue("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				Cell cell2=row.createCell(2);
-				cell2.setCellValue("ÏúÁ¿£¨Ôª£©");
+				cell2.setCellValue("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½");
 				for(int i=0;i<salesList.size();i++) {
 					Row tempRow=sheet.createRow(i+1);
 					Cell tempCell=tempRow.createCell(0);
@@ -86,36 +86,36 @@ public class ChartsController {
 	}
 	@Test
 	public void test1() throws Exception{
-		//1.´´½¨workbook¹¤×÷²¾
+		//1.ï¿½ï¿½ï¿½ï¿½workbookï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Workbook workbook=new XSSFWorkbook();
-		//2.´´½¨±íµ¥sheet
+		//2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sheet
 		Sheet sheet=workbook.createSheet("sheet1");
-		//3.ÎÄ¼þÁ÷
+		//3.ï¿½Ä¼ï¿½ï¿½ï¿½
 		FileOutputStream fout=new FileOutputStream("D:\\test1.xlsx");
-		//4.´´½¨ÐÐ¶ÔÏó£¬ÏÂ±ê´Ó0¿ªÊ¼
+		//4.ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Â±ï¿½ï¿½0ï¿½ï¿½Ê¼
 		Row row=sheet.createRow(0);
-		//5.´´½¨µ¥Ôª¸ñ
+		//5.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
 		Cell cell=row.createCell(0);
-		cell.setCellValue("GGË¼ÃÜ´ï");
-		//6.´´½¨µ¥Ôª¸ñÑùÊ½
+		cell.setCellValue("GGË¼ï¿½Ü´ï¿½");
+		//6.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½Ê½
 		CellStyle cellStyle=workbook.createCellStyle();
-		//ÉèÖÃ±ß¿ò(top,bottom,left,right)
+		//ï¿½ï¿½ï¿½Ã±ß¿ï¿½(top,bottom,left,right)
 		cellStyle.setBorderTop(BorderStyle.DOUBLE);
-		//ÉèÖÃ×ÖÌå
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Font font=workbook.createFont();
-		font.setFontName("»ªÎÄÏ¸ºÚ");//¾ßÌå¿ÉÒÔ´ò¿ªexcel×ÖÌå²é¿´
-		font.setFontHeightInPoints((short) 32);//ÉèÖÃ×ÖÌå´óÐ¡
+		font.setFontName("ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½excelï¿½ï¿½ï¿½ï¿½é¿´
+		font.setFontHeightInPoints((short) 32);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 		cellStyle.setFont(font);
-		//¿çÐÐ¿çÁÐ
+		//ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½
 		CellRangeAddress region=new CellRangeAddress(0,3,0,2);//(firstRow,lastRow,firstCol,lastCol)
 		sheet.addMergedRegion(region);
-		cellStyle.setAlignment(HorizontalAlignment.CENTER);//Ë®Æ½¾ÓÖÐ
-		cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//´¹Ö±¾ÓÖÐ
-		//Ó¦ÓÃÑùÊ½
+		cellStyle.setAlignment(HorizontalAlignment.CENTER);//Ë®Æ½ï¿½ï¿½ï¿½ï¿½
+		cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½
+		//Ó¦ï¿½ï¿½ï¿½ï¿½Ê½
 		cell.setCellStyle(cellStyle);
-		//7.»æÖÆÍ¼Æ¬
+		//7.ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 		//FileInputStream fin=new FileInputStream();
-		//Êä³ö±í¸ñ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		workbook.write(fout);
 		fout.close();
 	}

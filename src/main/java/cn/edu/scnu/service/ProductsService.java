@@ -1,37 +1,37 @@
-package easymall.service;
+package cn.edu.scnu.service;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import easymall.po.Category;
-import easymall.po.Products;
-import easymall.pojo.MyCategory;
-import easymall.pojo.MyProducts;
+import cn.edu.scnu.po.Category;
+import cn.edu.scnu.po.Products;
+import cn.edu.scnu.pojo.MyCategory;
+import cn.edu.scnu.pojo.MyProducts;
 
 public interface ProductsService {
-	// ²éÕÒÉÌÆ·Àà±ğ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	public List<Category> allcategorys();
-	// ²éÕÒÉÌÆ·
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	public List<Products> prodlist(Map<String, Object> map);
-	// ¸ù¾İpid²éÕÒµ¥¸öÉÌÆ·
+	// ï¿½ï¿½ï¿½ï¿½pidï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	public Products oneProduct(String pid);
-//	¸ù¾İpid²éÕÒµ¥¸öÉÌÆ·Àà±ğ
+//	ï¿½ï¿½ï¿½ï¿½pidï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	public Category oneCategory(String pid);
-	// ¸ù¾İ·ÖÀà²éÕÒÉÌÆ·
+	// ï¿½ï¿½ï¿½İ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	public List<Products> proclass(Integer category);
-	// Ìí¼ÓÉÌÆ·
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	public String save(MyProducts myproducts, HttpServletRequest request);
-//	É¾³ıÉÌÆ·
+//	É¾ï¿½ï¿½ï¿½ï¿½Æ·
 	public void deleteproduct(String pid);
-//	É¾³ıÉÌÆ·Àà±ğ
+//	É¾ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	public void deletecategory(String id);
 	
-//	Ìí¼ÓÉÌÆ·Àà±ğ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	public String savecategory(MyCategory mycategory);
-//	ĞŞ¸ÄÉÌÆ·
+//	ï¿½Ş¸ï¿½ï¿½ï¿½Æ·
 	public String update(String pid,MyProducts myproducts,HttpServletRequest request);
-//	ĞŞ¸ÄÉÌÆ·Àà±ğ
+//	ï¿½Ş¸ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	public String updateCategory(Integer pid,MyCategory mycategory);
 }

@@ -2,7 +2,7 @@ package cn.edu.scnu.vo;
 
 import java.util.List;
 
-import cn.edu.scnu.pojo.Product;
+import cn.edu.scnu.po.Product;
 
 
 /**

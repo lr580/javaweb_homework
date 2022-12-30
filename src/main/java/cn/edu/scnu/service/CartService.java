@@ -1,23 +1,23 @@
-package easymall.service;
+package cn.edu.scnu.service;
 
 import java.util.List;
 
-import easymall.po.Cart;
-import easymall.pojo.MyCart;
+import cn.edu.scnu.po.Cart;
+import cn.edu.scnu.pojo.MyCart;
 
 public interface CartService {
-	// Ìí¼Ó¹ºÎï³µ
+	// ï¿½ï¿½Ó¹ï¿½ï¿½ï³µ
 	public int addCart(Cart cart);
-	// ²éÕÒ¹ºÎï³µÊÇ·ñ´æÔÚ¸ÃÉÌÆ·
+	// ï¿½ï¿½ï¿½Ò¹ï¿½ï¿½ï³µï¿½Ç·ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½Æ·
 	public Cart findCart(Cart cart);
-	// ĞŞ¸Ä¹ºÎï³µÉÌÆ·ÊıÁ¿
+	// ï¿½Ş¸Ä¹ï¿½ï¿½ï³µï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 	public int updateCart(Cart cart);
-	// ÏÔÊ¾¹ºÎï³µ
+	// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï³µ
 	public List<MyCart> showcart(int user_id);
-	// ĞŞ¸Ä¹ºÎï³µÉÌÆ·ÊıÁ¿
+	// ï¿½Ş¸Ä¹ï¿½ï¿½ï³µï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 	public void updateBuyNum(Cart cart);
-	// É¾³ı¹ºÎï³µÖĞµÄÉÌÆ·
+	// É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï³µï¿½Ğµï¿½ï¿½ï¿½Æ·
 	public void delCart(Integer cartID);
-	// ¸ù¾İcartID²éÕÒ¹ºÎï³µ
+	// ï¿½ï¿½ï¿½ï¿½cartIDï¿½ï¿½ï¿½Ò¹ï¿½ï¿½ï³µ
 	public MyCart findByCartID(Integer cartID);
 }

@@ -1,4 +1,4 @@
-package easymall.controller.admin;
+package cn.edu.scnu.controller.admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,16 +15,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import easymall.po.Category;
-import easymall.po.OrderItem;
-import easymall.po.Orders;
-import easymall.po.Products;
-import easymall.po.User;
-import easymall.pojo.MyCategory;
-import easymall.pojo.MyProducts;
-import easymall.pojo.OrderInfo;
-import easymall.service.OrderService;
-import easymall.service.ProductsService;
+import cn.edu.scnu.po.Category;
+import cn.edu.scnu.po.OrderItem;
+import cn.edu.scnu.po.Orders;
+import cn.edu.scnu.po.Products;
+import cn.edu.scnu.po.User;
+import cn.edu.scnu.pojo.MyCategory;
+import cn.edu.scnu.pojo.MyProducts;
+import cn.edu.scnu.pojo.OrderInfo;
+import cn.edu.scnu.service.OrderService;
+import cn.edu.scnu.service.ProductsService;
 
 @Controller("productsControllerAdmin")
 @RequestMapping("/admin")
@@ -34,31 +34,31 @@ public class ProductsControllerAdmin {
 	private ProductsService productsService;
 	@Autowired
 	private OrderService orderService;
-//	Ìí¼ÓÉÌÆ·
+//	ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	@RequestMapping("/addprod")
 	public String addprod(Model model) {
-		// ²éÕÒÉÌÆ·±íÖÐËùÓÐµÄÉÌÆ·ÁÐ±í
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Æ·ï¿½Ð±ï¿½
 		List<Category> categorys = productsService.allcategorys();
 		model.addAttribute("categorys", categorys);
 		model.addAttribute("myproducts", new MyProducts());
 		return "admin/add_prod";
 	}
-//	Ìí¼ÓÉÌÆ·Àà±ð
+//	ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	@RequestMapping("/addcategory")
 	public String addcategory(Model model) {
-		// ²éÕÒÉÌÆ·±íÖÐËùÓÐµÄÉÌÆ·ÁÐ±í
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Æ·ï¿½Ð±ï¿½
 		List<Category> categorys = productsService.allcategorys();
 		model.addAttribute("categorys", categorys);
 		return "admin/add_category";
 	}
-//	±£´æÌí¼ÓµÄÉÌÆ·
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Æ·
 	@RequestMapping("/savecategory")
 	public String savecategory(@Valid @ModelAttribute MyCategory mycategory, Model model) throws Exception {
 		String msg = productsService.savecategory(mycategory);
 		model.addAttribute("msg", msg);
 		return "redirect:/admin/addcategory";
 	}
-//	±£´æÌí¼ÓµÄÉÌÆ·Àà±ð
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	@RequestMapping("/save")
 	public String save(@Valid @ModelAttribute MyProducts myproducts, HttpServletRequest request, Model model) throws Exception {
 		String msg = productsService.save(myproducts, request);
@@ -66,7 +66,7 @@ public class ProductsControllerAdmin {
 		return "redirect:/admin/addprod";
 	}
 	
-//	ÐÞ¸ÄÉÌÆ·
+//	ï¿½Þ¸ï¿½ï¿½ï¿½Æ·
 	@RequestMapping("/update")
 	public String update(@Valid @ModelAttribute MyProducts myproducts, HttpServletRequest request, Model model,String pid) throws Exception {
 		String msg = productsService.update(pid,myproducts, request);
@@ -74,7 +74,7 @@ public class ProductsControllerAdmin {
 		return "redirect:/admin/prodlist";
 	}
 	
-//	ÐÞ¸ÄÉÌÆ·Àà±ð
+//	ï¿½Þ¸ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	@RequestMapping("/updateCategory")
 	public String updateCategory(@Valid @ModelAttribute MyCategory mycategory, Model model,Integer pid) throws Exception {
 		String msg = productsService.updateCategory(pid,mycategory);
@@ -82,23 +82,23 @@ public class ProductsControllerAdmin {
 		return "redirect:/admin/categorylist";
 	}
 	
-//	ÉÌÆ·¹ÜÀí  ·µ»Øprod_list
+//	ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½prod_list
 	@RequestMapping("/prodlist")
 	public String prodlist(Model model) {
 		List<Category> categorys = productsService.allcategorys();
 		model.addAttribute("categorys", categorys);
-		// ´´½¨map ÓÃÓÚ´æ·Å²éÑ¯Ìõ¼þ
+		// ï¿½ï¿½ï¿½ï¿½map ï¿½ï¿½ï¿½Ú´ï¿½Å²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 		Map<String, Object> map = new HashMap<>();
 		map.put("minPrice", 0);
 		map.put("maxPrice", 999999999);
-		// ¸ù¾ÝÌõ¼þ²éÑ¯·ûºÏÌõ¼þµÄÉÌÆ·ÐÅÏ¢
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
 		List<Products> products = productsService.prodlist(map);
-		// ²éÑ¯½á¹û±©Â¶¸øÇ°¶Ë
+		// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½Ç°ï¿½ï¿½
 		model.addAttribute("products", products);
 		return "admin/prod_list";
 		
 	}
-//	ÉÌÆ·¹ÜÀí  É¾³ýÉÌÆ·
+//	ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½  É¾ï¿½ï¿½ï¿½ï¿½Æ·
 	@RequestMapping("/delprod")
 	public String delprod(String pid,Model model) {
 		productsService.deleteproduct(pid);
@@ -121,60 +121,60 @@ public class ProductsControllerAdmin {
 		return "admin/update_category";
 	}
 	
-//	ÉÌÆ·Àà±ð¹ÜÀí categorylist
+//	ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ categorylist
 	@RequestMapping("/categorylist")
 	public String categorylist(Model model) {
-		// ²éÕÒËùÓÐµÄÉÌÆ·ÖÖÀà
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 		List<Category> categorys = productsService.allcategorys();
-		// ²éÑ¯½á¹û±©Â¶¸øÇ°¶Ë
+		// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½Ç°ï¿½ï¿½
 		model.addAttribute("categorys", categorys);
 		return "admin/category_list";
 	}
 	
-//	ÉÌÆ·Àà±ð¹ÜÀí  É¾³ýÉÌÆ·Àà±ð
+//	ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  É¾ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 	@RequestMapping("/delcategory")
 	public String delcategory(String id,Model model) {
 		productsService.deletecategory(id);
 		return "redirect:/admin/categorylist";
 	}
 	
-//	¶©µ¥¹ÜÀí orderlist,´Ë´¦ÎªÏÔÊ¾
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ orderlist,ï¿½Ë´ï¿½Îªï¿½ï¿½Ê¾
 	@RequestMapping("/orderlist")
 	public String showorder(Model model) {
-		// 1. ²éÑ¯orders±íÀïµÄËùÓÐ¶©µ¥ÐÅÏ¢
+		// 1. ï¿½ï¿½Ñ¯ordersï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		List<OrderInfo> orderInfoList = findOrderInfo();
-		// 2.½«ËùÓÐ¶©µ¥ÐÅÏ¢µÄlist¼¯ºÏ´æÈërequestÓòÖÐ£¬×ª·¢µ½order_list.jspÖÐÏÔÊ¾
+		// 2.ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½listï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½requestï¿½ï¿½ï¿½Ð£ï¿½×ªï¿½ï¿½ï¿½ï¿½order_list.jspï¿½ï¿½ï¿½ï¿½Ê¾
 		model.addAttribute("orderInfos", orderInfoList);
 		return "admin/order_list";
 	}
 	
 	private List<OrderInfo> findOrderInfo() {
 		List<OrderInfo> orderInfoList = new ArrayList<OrderInfo>();
-		// 1.²éÑ¯orders±íÀïµÄËùÓÐ¶©µ¥ÐÅÏ¢
+		// 1.ï¿½ï¿½Ñ¯ordersï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		List<Orders> orderList = orderService.findOrder();
-		// 2.±éÀúÃ¿Ò»¸ö¶©µ¥£¬Í¨¹ý¶©µ¥id²éÑ¯µ±Ç°¶©µ¥ÖÐ°üº¬µÄËùÓÐ¶©µ¥ÏîÐÅÏ¢
+		// 2.ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		for (Orders order : orderList) {
-			// ¸ù¾ÝÓÃ»§order_id²éÑ¯¸Ã¶©µ¥ºÅµÄËùÓÐ¶©µ¥ÏîÐÅÏ¢£¬²éÑ¯orderitem±í
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½order_idï¿½ï¿½Ñ¯ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ñ¯orderitemï¿½ï¿½
 			List<OrderItem> orderitems = orderService.orderitem(order.getId());
-			// 3.±éÀúÃ¿Ò»¸ö¶©µ¥Ïî£¬Í¨¹ý¶©µ¥Ïî»ñÈ¡ÉÌÆ·ÐÅÏ¢¼°ÉÌÆ·µÄ¹ºÂòÊýÁ¿
+			// 3.ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î£¬Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Map<Products, Integer> map = new HashMap<Products, Integer>();
 			for (OrderItem orderItem : orderitems) {
-				// 3.1.»ñÈ¡ÉÌÆ·id£¬Í¨¹ýÉÌÆ·id²éÑ¯ÉÌÆ·ÐÅÏ¢£¬·µ»ØProduct¶ÔÏó
+				// 3.1.ï¿½ï¿½È¡ï¿½ï¿½Æ·idï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Æ·idï¿½ï¿½Ñ¯ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Productï¿½ï¿½ï¿½ï¿½
 				Products product = productsService.oneProduct(orderItem.getProduct_id());
-				// 3.2.½«ÉÌÆ·ÐÅÏ¢ºÍ¹ºÂòÊýÁ¿´æÈëmapÖÐ
+				// 3.2.ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mapï¿½ï¿½
 				map.put(product, orderItem.getBuynum());
 			}
-			// 4.½«¶©µ¥ÐÅÏ¢ºÍËùÓÐµÄ¶©µ¥ÏîÐÅÏ¢´æÈëOrderInfoÖÐ
+			// 4.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½OrderInfoï¿½ï¿½
 			OrderInfo orderInfo = new OrderInfo();
 			orderInfo.setOrder(order);
 			orderInfo.setMap(map);
-			// 5.½«Ò»¸öÍêÕûµÄ¶©µ¥ÐÅÏ¢´æÈëList¼¯ºÏÖÐ
+			// 5.ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Listï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			orderInfoList.add(orderInfo);
 		}
 		return orderInfoList;
 	}
 	
-//	·¢»õ
+//	ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/sendorder")
 	public String sendorder(String id, Model model) {
 		orderService.sendorder(id);

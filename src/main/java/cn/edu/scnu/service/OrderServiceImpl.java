@@ -1,4 +1,4 @@
-package easymall.service;
+package cn.edu.scnu.service;
 
 import java.util.List;
 
@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import easymall.dao.CartDao;
-import easymall.dao.OrderDao;
-import easymall.dao.OrderItemDao;
-import easymall.dao.ProductsDao;
-import easymall.dao.SalesDao;
-import easymall.po.OrderItem;
-import easymall.po.Orders;
-import easymall.po.Products;
-import easymall.pojo.MyCart;
-import easymall.pojo.MySales;
+import cn.edu.scnu.dao.CartDao;
+import cn.edu.scnu.dao.OrderDao;
+import cn.edu.scnu.dao.OrderItemDao;
+import cn.edu.scnu.dao.ProductsDao;
+import cn.edu.scnu.dao.SalesDao;
+import cn.edu.scnu.po.OrderItem;
+import cn.edu.scnu.po.Orders;
+import cn.edu.scnu.po.Products;
+import cn.edu.scnu.pojo.MyCart;
+import cn.edu.scnu.pojo.MySales;
 
 @Service("orderService")
 @Transactional
@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.payorder(id);
 	}
 
-//	²éÑ¯orders±íÀïµÄËùÓÐ¶©µ¥ÐÅÏ¢
+//	ï¿½ï¿½Ñ¯ordersï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	@Override
 	public List<Orders> findOrder() {
 		// TODO Auto-generated method stub

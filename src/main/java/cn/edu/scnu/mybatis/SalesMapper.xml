@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="easymall.dao.SalesDao">
+	<update id="sales" parameterType="easymall.pojo.MySales">
+		update sales set sales_num=sales_num + #{sales_num},num=num+#{num} where id=#{id}
+	</update>
+	<select id="allSales" resultType="easymall.pojo.MySales">
+		select * from sales
+	</select>
+</mapper>

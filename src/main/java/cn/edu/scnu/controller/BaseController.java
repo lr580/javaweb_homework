@@ -1,4 +1,4 @@
-package easymall.controller;
+package cn.edu.scnu.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -6,14 +6,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import easymall.exception.UserLoginNoException;
+import cn.edu.scnu.exception.UserLoginNoException;
 
 @Controller
 public class BaseController {
 	@ModelAttribute
 	public void isLogin(HttpSession session, HttpServletRequest request) throws UserLoginNoException {
 		if (session.getAttribute("user") == null) {
-			throw new UserLoginNoException("Ã»ÓÐµÇÂ½£¬ÇëÏÈµÇÂ¼£¡");
+			throw new UserLoginNoException("Ã»ï¿½Ðµï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½Â¼ï¿½ï¿½");
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package easymall.pojo;
+package cn.edu.scnu.pojo;
 
 public class MyCart {
 	

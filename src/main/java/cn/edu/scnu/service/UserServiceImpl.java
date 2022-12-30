@@ -1,11 +1,11 @@
-package easymall.service;
+package cn.edu.scnu.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import easymall.dao.UserDao;
-import easymall.po.Admin;
-import easymall.po.User;
+import cn.edu.scnu.dao.UserDao;
+import cn.edu.scnu.po.Admin;
+import cn.edu.scnu.po.User;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
